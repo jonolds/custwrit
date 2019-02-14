@@ -1,5 +1,3 @@
-package cloud.custwrit;
-
 import java.io.IOException;
 import java.util.StringTokenizer;
 
