@@ -1,6 +1,7 @@
+package cloud.custwrit;
+
 import java.io.IOException;
 
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
@@ -31,8 +32,7 @@ public class RecordReaderJon extends RecordReader<TextJon, IntJon> {
 			if(value == null) {
 				value = new IntJon();
 			}
-			Text line = reader.getCurrentValue();
-			String[] tokens = line.toString().split(",");
+			String[] tokens = reader.getCurrentValue().toString().split(",");
 			key.set(new String(tokens[0]));
 			value.set(new Integer(1));
 		}
