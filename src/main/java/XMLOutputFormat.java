@@ -38,9 +38,10 @@ public class XMLOutputFormat extends FileOutputFormat<TextJon, IntJon> {
 	}
 	
 	public RecordWriter<TextJon, IntJon> getRecordWriter(TaskAttemptContext job) throws IOException {
-		String file_extension = ".xml";
-		Path file = getDefaultWorkFile(job, file_extension);
+
+		Path file = getDefaultWorkFile(job, ".xml");
 		FileSystem fs = file.getFileSystem(job.getConfiguration());
+		
 		FSDataOutputStream fileOut = fs.create(file, false);
 		return new XMLRecordWriter(fileOut);
 	}

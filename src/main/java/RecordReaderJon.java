@@ -5,14 +5,14 @@ import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.input.LineRecordReader;
 
-public class RecordReaderJon extends RecordReader<TextJon, IntJon> {
-	private TextJon key;
-	private IntJon value;
+public class RecordReaderJon extends RecordReader<IntJon, TextJon> {
+	private TextJon value;
+	private IntJon key;
 	private LineRecordReader reader = new LineRecordReader();
 	
 	public void close() throws IOException { reader.close(); }
-	public TextJon getCurrentKey() { return key; }
-	public IntJon getCurrentValue() { return value; }
+	public IntJon getCurrentKey() { return key; }
+	public TextJon getCurrentValue() { return value; }
 	
 	public float getProgress() throws IOException { return reader.getProgress(); }
 	
@@ -23,16 +23,14 @@ public class RecordReaderJon extends RecordReader<TextJon, IntJon> {
 	public boolean nextKeyValue() throws IOException {
 		boolean gotNextKeyValue = reader.nextKeyValue();
 		
-		if(gotNextKeyValue){
-			if(key==null){
-				key = new TextJon();
-			}
-			if(value == null) {
-				value = new IntJon();
-			}
+		if(gotNextKeyValue) {
+			if(key==null)
+				key = new IntJon();
+			if(value == null)
+				value = new TextJon();
 			String[] tokens = reader.getCurrentValue().toString().split(",");
-			key.set(new String(tokens[0]));
-			value.set(new Integer(1));
+			value.set(new String(tokens[0]));
+			key.set(new Integer(99));
 		}
 		else {
 			key = null;
